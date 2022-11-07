@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import logo from '../../images/Logo.svg';
 import MenuProfile from './MenuProfile';
 import ModalComponent from './ModalComponent';
+import SearchModal from './SearchModal';
 import Sidebar from './SidebarComponent';
 
 export default function Navbar() {
@@ -16,6 +17,7 @@ export default function Navbar() {
           <img src={logo} alt="" className="" />
         </Link>
         <div className="flex gap-3 text-[30px] text-slate-200 items-center">
+          <SearchModal />
           <MenuProfile />
         </div>
       </div>
