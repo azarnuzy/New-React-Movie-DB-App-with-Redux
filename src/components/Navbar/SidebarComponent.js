@@ -64,7 +64,7 @@ export default function SidebarComponent() {
       <AiOutlineMenu className="text-xl" onClick={() => setIsShow(true)} />
       <div
         className={`transform ${
-          isShow ? '-translate-x-0' : '-translate-x-96'
+          isShow ? '-translate-x-0' : '-translate-x-[9999px]'
         } duration-300
          h-[100vh] bg-darkGrey left-0 fixed top-0 w-[80vw] opacity-90 z-10`}
       >
