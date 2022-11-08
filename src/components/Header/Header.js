@@ -8,29 +8,36 @@ import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 // import required modules
 import { EffectFade, Autoplay, Pagination } from 'swiper';
-import { TrailerButton } from '../Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  fetchGenres,
   fetchMovies,
-  getMoviesError,
   getMoviesStatus,
   selectAllMovies,
 } from '../../features/movies/moviesSlice';
 
 import dateFormat from 'dateformat';
 import { AiFillStar } from 'react-icons/ai';
+import { fetchTv, getTvStatus, selectAllTv } from '../../features/tv/tvSlice';
 
 export default function Header() {
   const dispatch = useDispatch();
   let movies = useSelector(selectAllMovies);
   const moviesStatus = useSelector(getMoviesStatus);
-  const moviesError = useSelector(getMoviesError);
+
+  let tv = useSelector(selectAllTv);
+  const tvStatus = useSelector(getTvStatus);
 
   useEffect(() => {
     if (moviesStatus === 'idle') {
       dispatch(fetchMovies());
+      dispatch(fetchGenres());
     }
-  }, [moviesStatus, dispatch]);
+
+    if (tvStatus === 'idle') {
+      dispatch(fetchTv());
+    }
+  }, [moviesStatus, dispatch, tvStatus]);
 
   if (moviesStatus === 'succeeded') {
     movies = movies.slice(2, 5);
@@ -78,13 +85,6 @@ export default function Header() {
                   <div className="flex">
                     <p className=" text-sm md mb-3 text-slate-50">{date}</p>
                   </div>
-
-                  {/* <p className=" text-md mb-3">
-                    {item.overview.length > 100
-                      ? `${item.overview.substring(0, 100)}...`
-                      : item.overview}
-                  </p> */}
-                  {/* <TrailerButton item={item} /> */}
                 </div>
               </div>
             </SwiperSlide>

@@ -26,7 +26,7 @@ export default function MovieCard({ item, category }) {
           <span className="flex gap-3 items-center text-yellow-400 mt-1 ">
             <AiFillStar /> <p>{item.vote_average?.toFixed(1)} / 10</p>
           </span>
-          <h3 className="text-white font-semibold text-lg w-full">
+          <h3 className="text-white font-semibold text-base w-full">
             {item.name || item.title}
           </h3>
         </div>

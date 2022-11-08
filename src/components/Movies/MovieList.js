@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
@@ -8,15 +8,10 @@ import 'swiper/css';
 
 import { useWindowWidth } from '@react-hook/window-size';
 
-import {
-  fetchMovies,
-  getMoviesError,
-  getMoviesStatus,
-  selectAllMovies,
-} from '../../features/movies/moviesSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { selectAllMovies } from '../../features/movies/moviesSlice';
+import { useSelector } from 'react-redux';
 import MovieCard from './MovieCard';
-export default function MoviesList({ category }) {
+export default function MovieList({ category }) {
   let movies = useSelector(selectAllMovies);
 
   const width = useWindowWidth();
@@ -34,19 +29,21 @@ export default function MoviesList({ category }) {
   };
 
   return (
-    <div className="w-full ml-3 relative">
-      <div className="absolute right-0 h-[110%] -top-2 z-10 bg-white opacity-90 w-6"></div>
+    <div className="w-full overflow-hidden flex items-center relative">
+      <div className="absolute right-0 h-[110%] -top-2 z-10 bg-white opacity-90 w-3 blur"></div>
       <Swiper
         slidesPerView={getSlidesPerView()}
         spaceBetween={20}
-        className="mySwiper"
+        className="mySwiper transform translate-x-[12px]"
         modules={[Autoplay]}
       >
-        {movies.map((item, i) => (
-          <SwiperSlide key={i}>
-            <MovieCard item={item} category={category} />
-          </SwiperSlide>
-        ))}
+        {movies.map((item, i) => {
+          return (
+            <SwiperSlide key={i}>
+              <MovieCard item={item} category={category} />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );

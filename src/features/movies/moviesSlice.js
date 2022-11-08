@@ -4,6 +4,7 @@ import apiConfig from '../../api/apiConfig';
 
 const initialState = {
   movies: [],
+  genres: [],
   status: 'idle',
   loadingStatus: 'idle',
   page: 1,
@@ -19,6 +20,18 @@ export const fetchMovies = createAsyncThunk('movies/fetchMovies', async () => {
       params,
     });
 
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+export const fetchGenres = createAsyncThunk('genres/fetchGenres', async () => {
+  try {
+    const params = { api_key: apiConfig.apiKey };
+    const response = await axios.get(`${apiConfig.baseUrl}/genre/movie/list`, {
+      params,
+    });
     return response.data;
   } catch (error) {
     console.error(error);
@@ -73,6 +86,10 @@ const moviesSlice = createSlice({
       })
       .addCase(loadMoreFetchMovies.rejected, (state, action) => {
         state.loadingStatus = action.error.message;
+      })
+      .addCase(fetchGenres.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.genres = action.payload.genres;
       });
   },
 });
@@ -80,6 +97,8 @@ const moviesSlice = createSlice({
 export const selectAllMovies = (state) => state.movies.movies;
 export const getMoviesStatus = (state) => state.movies.status;
 export const getMoviesError = (state) => state.movies.error;
+
+export const selectAllGenres = (state) => state.movies.genres;
 
 export const getLoadMoreStatus = (state) => state.movies.loadingStatus;
 
