@@ -1,11 +1,8 @@
 import React from 'react';
-import { AiOutlineArrowRight } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { category } from '../api/tmdbApi';
 import Header from '../components/Header/Header';
 import GenreMovies from '../components/Movies/GenresMovies';
-import GenreList from '../components/Movies/GenresMovies';
 import ListBox from '../components/Movies/ListBox';
 import MovieList from '../components/Movies/MovieList';
 import { selectFilterBy } from '../features/movies/moviesSlice';

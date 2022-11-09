@@ -21,13 +21,17 @@ import dateFormat from 'dateformat';
 import { AiFillStar } from 'react-icons/ai';
 import { fetchGenresTv, fetchTv, getTvStatus } from '../../features/tv/tvSlice';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import {
+  fetchTrendingMovies,
+  getTrendingStatus,
+} from '../../features/trending/trending';
 
 export default function Header() {
   const dispatch = useDispatch();
 
   let headers = useSelector(SelectcHeaders);
   const moviesStatus = useSelector(getMoviesStatus);
-
+  const trendingStatus = useSelector(getTrendingStatus);
   const tvStatus = useSelector(getTvStatus);
 
   useEffect(() => {
@@ -40,6 +44,10 @@ export default function Header() {
     if (tvStatus === 'idle') {
       dispatch(fetchTv({ type: 'popular' }));
       dispatch(fetchGenresTv());
+    }
+
+    if (trendingStatus === 'idle') {
+      dispatch(fetchTrendingMovies());
     }
   }, [moviesStatus, dispatch, tvStatus]);
 
