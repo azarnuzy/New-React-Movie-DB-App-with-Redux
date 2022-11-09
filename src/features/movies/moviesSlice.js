@@ -17,7 +17,6 @@ const initialState = {
 export const fetchMovies = createAsyncThunk(
   'movies/fetchMovies',
   async ({ type }) => {
-    console.log(type);
     try {
       let response = null;
       const params = { api_key: apiConfig.apiKey };
@@ -125,6 +124,7 @@ export const selectAllMovies = (state) => state.movies.movies;
 export const getMoviesStatus = (state) => state.movies.status;
 export const getMoviesError = (state) => state.movies.error;
 export const SelectcHeaders = (state) => state.movies.headers;
+export const selectFilterBy = (state) => state.movies.filterBy;
 
 export const selectAllGenres = (state) => state.movies.genres;
 

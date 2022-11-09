@@ -11,15 +11,13 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 import { useWindowWidth } from '@react-hook/window-size';
-import {
-  getMoviesStatus,
-  selectAllMovies,
-} from '../../features/movies/moviesSlice';
-import MovieCard from './MovieCard';
 
-export default function MovieList({ category }) {
-  let movies = useSelector(selectAllMovies);
-  const moviesStatus = useSelector(getMoviesStatus);
+import MovieCard from '../Movies/MovieCard';
+import { getTvStatus, selectAllTv } from '../../features/tv/tvSlice';
+
+export default function TvList({ category }) {
+  let tv = useSelector(selectAllTv);
+  const tvStatus = useSelector(getTvStatus);
 
   const width = useWindowWidth();
 
@@ -44,11 +42,11 @@ export default function MovieList({ category }) {
         className="mySwiper transform translate-x-[12px]"
         modules={[Autoplay]}
       >
-        {movies.map((item, i) => {
+        {tv.map((item, i) => {
           return (
             <SwiperSlide key={i}>
-              {moviesStatus === 'succeeded' ? (
-                <MovieCard item={item} category={category} type="movie" />
+              {tvStatus === 'succeeded' ? (
+                <MovieCard item={item} category={category} type="tv" />
               ) : (
                 <SkeletonTheme baseColor="#292929" highlightColor="#444">
                   <p>

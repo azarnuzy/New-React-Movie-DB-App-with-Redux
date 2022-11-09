@@ -9,7 +9,7 @@ import Sidebar from './SidebarComponent';
 export default function Navbar() {
   return (
     <div>
-      <div className="flex justify-between py-3 mx-2 relative z-10">
+      <div className="flex justify-between py-3 mx-2 relative z-20">
         <div className="text-slate-200 flex items-center">
           <Sidebar />
         </div>

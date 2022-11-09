@@ -7,16 +7,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper';
 // Import Swiper styles
 import 'swiper/css';
-import {
-  getMoviesStatus,
-  selectAllGenres,
-} from '../../features/movies/moviesSlice';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { getTvStatus, selectAllGenresTv } from '../../features/tv/tvSlice';
 
-export default function GenreMovies() {
+export default function GenresTv() {
   const width = useWindowWidth();
-  const genres = useSelector(selectAllGenres);
-  const movieStatus = useSelector(getMoviesStatus);
+  const genres = useSelector(selectAllGenresTv);
+  const tvStatus = useSelector(getTvStatus);
 
   const getSlidesPerView = () => {
     if (width >= 1280) {
@@ -41,9 +38,9 @@ export default function GenreMovies() {
       >
         {genres.map((item, i) => (
           <SwiperSlide key={i}>
-            {movieStatus === 'succeeded' ? (
+            {tvStatus === 'succeeded' ? (
               <Link
-                to={`/movie/genres/${item.id}`}
+                to={`/tv/genres/${item.id}`}
                 className="flex justify-center py-2 px-1  rounded-full border-2 text-darkRed font-semibold border-solid border-darkRed whitespace-nowrap overflow-hidden"
               >
                 {item.name}

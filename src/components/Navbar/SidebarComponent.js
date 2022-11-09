@@ -66,7 +66,7 @@ export default function SidebarComponent() {
         className={`transform ${
           isShow ? '-translate-x-0' : '-translate-x-[9999px]'
         } duration-300
-         h-[100vh] bg-darkGrey left-0 fixed top-0 w-[80vw] opacity-90 z-10`}
+         h-[100vh] bg-darkGrey left-0 fixed top-0 w-[80vw] opacity-90 z-20`}
       >
         <MenuSidebar setIsShow={setIsShow} />
       </div>

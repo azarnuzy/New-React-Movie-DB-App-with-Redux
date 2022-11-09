@@ -14,13 +14,13 @@ import {
   fetchMovies,
   fetchMoviesHeader,
   getMoviesStatus,
-  selectAllMovies,
   SelectcHeaders,
 } from '../../features/movies/moviesSlice';
 
 import dateFormat from 'dateformat';
 import { AiFillStar } from 'react-icons/ai';
-import { fetchTv, getTvStatus, selectAllTv } from '../../features/tv/tvSlice';
+import { fetchGenresTv, fetchTv, getTvStatus } from '../../features/tv/tvSlice';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -38,7 +38,8 @@ export default function Header() {
     }
 
     if (tvStatus === 'idle') {
-      dispatch(fetchTv());
+      dispatch(fetchTv({ type: 'popular' }));
+      dispatch(fetchGenresTv());
     }
   }, [moviesStatus, dispatch, tvStatus]);
 
@@ -73,23 +74,32 @@ export default function Header() {
           const date = dateFormat(item.release_date, 'mmm dd, yyyy');
           return (
             <SwiperSlide key={i}>
-              <div className="w-full h-[50vh] relative">
-                <div className="bg-[#0006] absolute w-full h-[50vh]"></div>
-                <img
-                  className="absolute w-full h-[50vh] object-top object-cover -z-[10] "
-                  src={background}
-                  alt=""
-                />
-                <div className="h-[50vh] transform translate-y-[70%] text-gray-50 mx-4 lg:max-w-5xl lg:mx-auto">
-                  <span className="flex gap-3 items-center text-yellow-400 mb-1">
-                    <AiFillStar /> <p>{item.vote_average?.toFixed(1)} / 10</p>
-                  </span>
-                  <h2 className="text-2xl font-bold mb-1">{item.title}</h2>
-                  <div className="flex">
-                    <p className=" text-sm md mb-3 text-slate-50">{date}</p>
+              {moviesStatus === 'succeeded' ? (
+                <div className="w-full h-[50vh] relative">
+                  <div className="bg-[#0006] absolute w-full h-[50vh]"></div>
+                  <img
+                    className="absolute w-full h-[50vh] object-top object-cover -z-[10] "
+                    src={background}
+                    alt=""
+                  />
+                  <div className="h-[50vh] transform translate-y-[70%] text-gray-50 mx-4 lg:max-w-5xl lg:mx-auto">
+                    <span className="flex gap-3 items-center text-yellow-400 mb-1">
+                      <AiFillStar /> <p>{item.vote_average?.toFixed(1)} / 10</p>
+                    </span>
+                    <h2 className="text-2xl font-bold mb-1">{item.title}</h2>
+                    <div className="flex">
+                      <p className=" text-sm md mb-3 text-slate-50">{date}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <SkeletonTheme baseColor="#292929" highlightColor="#444">
+                  <p>
+                    <Skeleton height={300} />
+                    <Skeleton count={2} height={15} />
+                  </p>
+                </SkeletonTheme>
+              )}
             </SwiperSlide>
           );
         })}

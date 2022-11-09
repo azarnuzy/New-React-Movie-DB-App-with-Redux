@@ -2,24 +2,24 @@ import { Fragment, useEffect, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { AiFillCheckCircle, AiFillDownCircle } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
-import { fetchMovies, filterBy } from '../../features/movies/moviesSlice';
+import { fetchTv, filterTvBy } from '../../features/tv/tvSlice';
 
 const category = [
   { cate: 'Popular' },
   { cate: 'Top Rated' },
-  { cate: 'Upcoming' },
-  { cate: 'Now Playing' },
+  { cate: 'On The Air' },
+  { cate: 'Airing Today' },
 ];
 
-export default function ListBox() {
+export default function ListBoxTv() {
   const [selected, setSelected] = useState(category[0]);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(filterBy(selected));
+    dispatch(filterTvBy(selected));
     dispatch(
-      fetchMovies({ type: selected.cate.toLowerCase().split(' ').join('_') })
+      fetchTv({ type: selected.cate.toLowerCase().split(' ').join('_') })
     );
   }, [dispatch, selected]);
 
