@@ -12,8 +12,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchGenres,
   fetchMovies,
+  fetchMoviesHeader,
   getMoviesStatus,
   selectAllMovies,
+  SelectcHeaders,
 } from '../../features/movies/moviesSlice';
 
 import dateFormat from 'dateformat';
@@ -22,15 +24,16 @@ import { fetchTv, getTvStatus, selectAllTv } from '../../features/tv/tvSlice';
 
 export default function Header() {
   const dispatch = useDispatch();
-  let movies = useSelector(selectAllMovies);
+
+  let headers = useSelector(SelectcHeaders);
   const moviesStatus = useSelector(getMoviesStatus);
 
-  let tv = useSelector(selectAllTv);
   const tvStatus = useSelector(getTvStatus);
 
   useEffect(() => {
     if (moviesStatus === 'idle') {
-      dispatch(fetchMovies());
+      dispatch(fetchMovies({ type: 'popular' }));
+      dispatch(fetchMoviesHeader());
       dispatch(fetchGenres());
     }
 
@@ -40,7 +43,7 @@ export default function Header() {
   }, [moviesStatus, dispatch, tvStatus]);
 
   if (moviesStatus === 'succeeded') {
-    movies = movies.slice(2, 5);
+    headers = headers.slice(2, 5);
   }
 
   const pagination = {
@@ -62,7 +65,7 @@ export default function Header() {
         className="mySwiper"
         modules={[EffectFade, Autoplay, Pagination]}
       >
-        {movies.map((item, i) => {
+        {headers.map((item, i) => {
           const background = apiConfig.originalImage(
             item.backdrop_path ? item.backdrop_path : item.poster_path
           );

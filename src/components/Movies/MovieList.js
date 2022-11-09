@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
@@ -6,13 +7,19 @@ import { Autoplay } from 'swiper';
 // Import Swiper styles
 import 'swiper/css';
 
-import { useWindowWidth } from '@react-hook/window-size';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
-import { selectAllMovies } from '../../features/movies/moviesSlice';
-import { useSelector } from 'react-redux';
+import { useWindowWidth } from '@react-hook/window-size';
+import {
+  getMoviesStatus,
+  selectAllMovies,
+} from '../../features/movies/moviesSlice';
 import MovieCard from './MovieCard';
+
 export default function MovieList({ category }) {
   let movies = useSelector(selectAllMovies);
+  const moviesStatus = useSelector(getMoviesStatus);
 
   const width = useWindowWidth();
 
@@ -40,7 +47,16 @@ export default function MovieList({ category }) {
         {movies.map((item, i) => {
           return (
             <SwiperSlide key={i}>
-              <MovieCard item={item} category={category} />
+              {moviesStatus === 'succeeded' ? (
+                <MovieCard item={item} category={category} />
+              ) : (
+                <SkeletonTheme baseColor="#202020" highlightColor="#444">
+                  <p>
+                    <Skeleton height={230} />
+                    <Skeleton count={2} />
+                  </p>
+                </SkeletonTheme>
+              )}
             </SwiperSlide>
           );
         })}
