@@ -17,7 +17,6 @@ export const fetchTrendingMovies = createAsyncThunk(
       response = await axios.get(`${apiConfig.baseUrl}trending/all/week`, {
         params,
       });
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error(error);

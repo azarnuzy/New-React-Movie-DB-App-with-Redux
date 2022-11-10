@@ -10,6 +10,7 @@ import TvList from '../components/Tv/TvList';
 import { selectFilterTvBy } from '../features/tv/tvSlice';
 import ListBoxTv from '../components/Tv/ListBox';
 import GenresTv from '../components/Tv/GenresTv';
+import Trailer from '../components/Trailer/Trailer';
 
 function Home() {
   const titleSectionMovies = useSelector(selectFilterBy).split('_');
@@ -39,6 +40,7 @@ function Home() {
       <MovieList category={category.movie} />
       <h2 className="text-xl font-semibold mt-3 mx-3">Genres Movie</h2>
       <GenreMovies />
+      <Trailer />
       <div
         className={`flex items-center text-lg mb-4 mt-5 justify-between mx-3 font-semibold `}
       >

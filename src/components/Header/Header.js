@@ -49,7 +49,7 @@ export default function Header() {
     if (trendingStatus === 'idle') {
       dispatch(fetchTrendingMovies());
     }
-  }, [moviesStatus, dispatch, tvStatus]);
+  }, [moviesStatus, dispatch, tvStatus, trendingStatus]);
 
   if (moviesStatus === 'succeeded') {
     headers = headers.slice(2, 5);
