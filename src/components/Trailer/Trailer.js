@@ -8,19 +8,22 @@ import 'swiper/css/navigation';
 
 // import required modules
 import { Autoplay, Navigation } from 'swiper';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
+  fetchTrailerMovies,
   getTrendingStatus,
   selectTrendingMovies,
 } from '../../features/trending/trending';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import apiConfig from '../../api/apiConfig';
 import { useWindowWidth } from '@react-hook/window-size';
-import { AiFillYoutube } from 'react-icons/ai';
+import ModalTrailer from './ModalTrailer';
 
 export default function Trailer() {
   let trending = useSelector(selectTrendingMovies);
   let trendingStatus = useSelector(getTrendingStatus);
+
+  const dispatch = useDispatch();
 
   const width = useWindowWidth();
 
@@ -62,13 +65,23 @@ export default function Trailer() {
                     className="absolute top-0 left-0 w-full h-[30vh] object-cover object-center -z-10"
                   />
                   <div className="w-full h-[30vh] flex justify-center items-center flex-col">
-                    <div className="relative z-10 group">
+                    <div
+                      className="relative z-10 group"
+                      onClick={() => {
+                        dispatch(
+                          fetchTrailerMovies({
+                            type: item.media_type,
+                            id: item.id,
+                          })
+                        );
+                      }}
+                    >
                       <img
                         src={apiConfig.originalImage(item.backdrop_path)}
                         alt=""
                         className="group-hover:transform group-hover:scale-[1.02] group-hover:transition group-hover:duration-200 relative h-[20vh] object-cover object-top transform rounded-lg mt-10"
                       />
-                      <AiFillYoutube className="group-hover:transform group-hover:scale-[1.02] group-hover:transition group-hover:duration-200 absolute z-20  text-6xl text-slate-400 top-1/2 left-1/2 transform -translate-x-6 -translate-y-2 shadow-md" />
+                      <ModalTrailer />
                     </div>
                     <h4 className="relative z-10 text-white mt-2 font-semibold">
                       {item.title || item.name}
