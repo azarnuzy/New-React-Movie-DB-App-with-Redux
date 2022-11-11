@@ -42,6 +42,13 @@ export default function Header() {
     }
   };
 
+  function toHoursAndMinutes(totalMinutes) {
+    const minutes = totalMinutes % 60;
+    const hours = Math.floor(totalMinutes / 60);
+
+    return `${hours}h ${minutes}m`;
+  }
+
   return (
     <div className="w-full">
       <div className="z-0 h-[100vh] w-full absolute top-0 bg-gradient-to-t to-[#0000000c] from-black"></div>
@@ -62,7 +69,13 @@ export default function Header() {
               <h2 className="text-slate-100 font-bold tracking-wider text-3xl">
                 {item.name || item.title}
               </h2>
-              <p className=" text-sm md mb-3 text-slate-50 mt-2">{date}</p>
+              <div className="flex gap-3 w-full items-center mt-2 mb-3">
+                <span className=" text-sm md text-slate-50 ">{date}</span>
+                <span className="h-1 w-1 rounded-full bg-slate-100"></span>
+                <p className="text-sm md text-slate-50 ">
+                  {toHoursAndMinutes(item.runtime)}{' '}
+                </p>
+              </div>
               <div className="flex gap-3 mt-3">
                 {item.genres?.map((genre) => (
                   <Link
