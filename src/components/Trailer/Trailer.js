@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -29,11 +29,11 @@ export default function Trailer() {
 
   const getSlidesPerView = () => {
     if (width >= 1280) {
-      return 3;
+      return 4;
     } else if (width >= 1024) {
-      return 2;
+      return 3;
     } else if (width >= 768) {
-      return 1;
+      return 2;
     } else {
       return 1;
     }
