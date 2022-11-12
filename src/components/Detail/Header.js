@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useSelector } from 'react-redux';
@@ -18,6 +18,7 @@ import { Autoplay } from 'swiper';
 // Import Swiper styles
 import 'swiper/css';
 import CastCard from './CastCard';
+import Trailer from './Trailer';
 
 export default function Header() {
   const item = useSelector(selectDetail);
@@ -50,18 +51,18 @@ export default function Header() {
   }
 
   return (
-    <div className="w-full">
-      <div className="z-0 h-[100vh] w-full absolute top-0 bg-gradient-to-t to-[#0000000c] from-black"></div>
+    <div className="w-full bg-black">
+      <div className="z-[3] h-[100vh] w-full absolute top-0 bg-gradient-to-t to-[#0000000c] from-black"></div>
       {item ? (
         <div className="">
           <img
             src={apiConfig.originalImage(
               item?.backdrop_path || item?.poster_path
             )}
-            className="absolute top-0 left-0 w-full h-[100vh] -z-10 object-cover "
+            className="absolute top-0 left-0 w-full h-[100vh] z-[2] object-cover "
             alt={item.name || item.title}
           />
-          <div className="relative z-[2]  mt-[13vh]">
+          <div className="relative z-[5]  mt-[45vh]">
             <div className="mx-2">
               <span className="flex gap-3 items-center text-yellow-400 mt-1 ">
                 <AiFillStar /> <p>{item.vote_average?.toFixed(1)} / 10</p>
@@ -121,6 +122,10 @@ export default function Header() {
               </div>
             </div>
           </div>
+          <h3 className="mt-[7vh] text-white font-semibold mx-3 text-xl">
+            Latest Trailer
+          </h3>
+          <Trailer item={item} />
         </div>
       ) : (
         <SkeletonTheme baseColor="#292929" highlightColor="#444">

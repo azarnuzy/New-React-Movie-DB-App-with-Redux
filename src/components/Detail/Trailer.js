@@ -1,8 +1,6 @@
 import { useWindowWidth } from '@react-hook/window-size';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Swiper, { Autoplay, Navigation } from 'swiper';
-import { SwiperSlide } from 'swiper/react';
 import apiConfig from '../../api/apiConfig';
 import ModalTrailer from '../Trailer/ModalTrailer';
 import {
@@ -11,13 +9,25 @@ import {
   selectTrailerMovies,
 } from '../../features/trending/trending';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-export default function Trailer() {
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+// import required modules
+import { Autoplay, Navigation } from 'swiper';
+import { useParams } from 'react-router-dom';
+
+export default function Trailer({ item }) {
   const trailer = useSelector(selectTrailerMovies);
   const dispatch = useDispatch();
   const trailerStatus = useSelector(getTrendingStatus);
 
   const width = useWindowWidth();
+
+  const { category } = useParams();
 
   const getSlidesPerView = () => {
     if (width >= 1280) {
@@ -31,30 +41,34 @@ export default function Trailer() {
     }
   };
 
+  useEffect(() => {
+    if (trailerStatus === 'idle') {
+      dispatch(fetchTrailerMovies({ type: category, id: item.id }));
+    }
+  }, [category, dispatch, item.id, trailerStatus]);
+
+  console.log(trailer);
+
   return (
     <div className="w-full overflow-hidden flex items-center relative mt-5">
-      <div className="absolute right-0 h-[110%] -top-2 z-10 bg-white opacity-90 w-3 blur"></div>
-      <h2 className="absolute z-10 top-0 text-slate-50 text-xl font-semibold mt-3 mx-3">
-        Trending Trailers
-      </h2>
       <Swiper
         slidesPerView={getSlidesPerView()}
-        spaceBetween={0}
+        spaceBetween={30}
         className="mySwiper"
         navigation={true}
         modules={[Autoplay, Navigation]}
       >
-        {trailer.map((item, i) => {
+        {trailer?.map((item, i) => {
+          console.log(item);
           return (
             <SwiperSlide key={i} className="relative">
               {trailerStatus === 'succeeded' ? (
                 <div className="relative h-[30vh]">
-                  <div className="absolute top-0 left-0 h-[30vh] z-0 bg-gradient-to-r from-darkGrey to-darkGrey w-full opacity-70"></div>
-                  <img
-                    src={`www.themoviedb.org/video/play?${item.key}`}
-                    alt=""
-                    className="absolute top-0 left-0 w-full h-[30vh] object-cover object-center -z-10"
-                  />
+                  <iframe
+                    src={`https://www.youtube.com/embed/${item?.key}`}
+                    title="unix"
+                    className="w-full h-[30vh]"
+                  ></iframe>
                   <div className="w-full h-[30vh] flex justify-center items-center flex-col">
                     <div
                       className="relative z-10 group"
