@@ -42,12 +42,13 @@ export default function Trailer({ item }) {
   };
 
   useEffect(() => {
-    if (trailerStatus === 'idle') {
-      dispatch(fetchTrailerMovies({ type: category, id: item.id }));
-    }
-  }, [category, dispatch, item.id, trailerStatus]);
-
-  console.log(trailer);
+    dispatch(
+      fetchTrailerMovies({
+        type: category,
+        id: item.id,
+      })
+    );
+  }, [category, dispatch, item.id]);
 
   return (
     <div className="w-full overflow-hidden flex items-center relative mt-5">
@@ -59,34 +60,22 @@ export default function Trailer({ item }) {
         modules={[Autoplay, Navigation]}
       >
         {trailer?.map((item, i) => {
-          console.log(item);
           return (
             <SwiperSlide key={i} className="relative">
               {trailerStatus === 'succeeded' ? (
                 <div className="relative h-[30vh]">
                   <iframe
                     src={`https://www.youtube.com/embed/${item?.key}`}
-                    title="unix"
+                    title={item.name}
                     className="w-full h-[30vh]"
                   ></iframe>
                   <div className="w-full h-[30vh] flex justify-center items-center flex-col">
-                    <div
-                      className="relative z-10 group"
-                      onClick={() => {
-                        dispatch(
-                          fetchTrailerMovies({
-                            type: item.media_type,
-                            id: item.id,
-                          })
-                        );
-                      }}
-                    >
+                    <div>
                       <img
                         src={apiConfig.originalImage(item.backdrop_path)}
                         alt=""
                         className="group-hover:transform group-hover:scale-[1.02] group-hover:transition group-hover:duration-200 relative h-[20vh] object-cover object-top transform rounded-lg mt-10"
                       />
-                      <ModalTrailer />
                     </div>
                     <h4 className="relative z-10 text-white mt-2 font-semibold">
                       {item.title || item.name}

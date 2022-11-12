@@ -44,8 +44,8 @@ export default function Header() {
   };
 
   function toHoursAndMinutes(totalMinutes) {
-    const minutes = totalMinutes % 60;
-    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60 || 0;
+    const hours = Math.floor(totalMinutes / 60) || 0;
 
     return `${hours}h ${minutes}m`;
   }

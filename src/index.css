@@ -30,6 +30,13 @@ body {
   color: #fff !important;
 }
 
+.swiper-button-next::after {
+  font-size: 30px !important;
+}
+
 .swiper-button-prev {
   color: #fff !important;
+}
+.swiper-button-prev::after {
+  font-size: 30px !important;
 }

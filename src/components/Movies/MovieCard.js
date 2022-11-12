@@ -1,8 +1,10 @@
 import React from 'react';
 import { AiFillStar } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import apiConfig from '../../api/apiConfig';
 import { category as cate } from '../../api/tmdbApi';
+import { fetchTrailerMovies } from '../../features/trending/trending';
 import noImage from '../../images/noImage.png';
 
 export default function MovieCard({ item, category }) {
@@ -14,8 +16,15 @@ export default function MovieCard({ item, category }) {
     bg = noImage;
   }
 
+  const dispatch = useDispatch();
+
   return (
-    <Link to={link}>
+    <Link
+      to={link}
+      onClick={() =>
+        dispatch(fetchTrailerMovies({ type: category, id: item.id }))
+      }
+    >
       <div className="relative group">
         <img
           src={bg}
