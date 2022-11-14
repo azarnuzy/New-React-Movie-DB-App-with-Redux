@@ -40,7 +40,7 @@ export default function MovieGrid() {
 
   const location = useLocation();
   let search = '';
-  if (location.state.search !== null) {
+  if (location.state !== null) {
     search = location.state.search;
   }
 
