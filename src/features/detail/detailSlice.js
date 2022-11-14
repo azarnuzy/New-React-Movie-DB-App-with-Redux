@@ -16,6 +16,7 @@ export const fetchDetailMovie = createAsyncThunk(
   async ({ category, id }) => {
     try {
       let response = null;
+      console.log(category);
       const params = { api_key: apiConfig.apiKey };
       response = await axios.get(
         `${apiConfig.baseUrl}${cate[category]}/${id}`,
@@ -42,6 +43,7 @@ export const fetchSimilarMovies = createAsyncThunk(
           params,
         }
       );
+      console.log(response);
 
       return response.data;
     } catch (error) {

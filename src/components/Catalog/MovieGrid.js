@@ -22,28 +22,31 @@ export default function MovieGrid() {
   const totalPage = useSelector(getTotalPages);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (keyword === undefined && id_genres === undefined) {
       dispatch(fetchMoviesByCatalog({ type, category }));
     } else if (keyword === undefined && id_genres.length > 0) {
-      dispatch(fetchMoviesByGenres(id_genres));
+      dispatch(fetchMoviesByGenres({ id_genres, type }));
     } else {
       dispatch(fetchMoviesByInput({ keyword }));
     }
   }, [category, dispatch, id_genres, keyword, type]);
 
   const onLoadMoreClicked = () => {
-    dispatch(loadMoreFetchMoviesByCatalog({ type, category, page }));
+    dispatch(
+      loadMoreFetchMoviesByCatalog({ type, category, page, keyword, id_genres })
+    );
   };
 
   const location = useLocation();
   let search = '';
-  if (location.state !== null) {
+  if (location.state.search !== null) {
     search = location.state.search;
   }
 
   return (
     <>
-      {search !== null && search.length > 0 && (
+      {search !== null && search?.length > 0 && (
         <h3 className="text-center font-bold text-lg -mt-2 -mb-4">
           Search Result "{search}"
         </h3>

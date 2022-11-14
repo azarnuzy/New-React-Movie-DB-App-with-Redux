@@ -1,6 +1,6 @@
 import { useWindowWidth } from '@react-hook/window-size';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
@@ -14,6 +14,8 @@ export default function GenresTv() {
   const width = useWindowWidth();
   const genres = useSelector(selectAllGenresTv);
   const tvStatus = useSelector(getTvStatus);
+
+  const navigate = useNavigate();
 
   const getSlidesPerView = () => {
     if (width >= 1280) {
@@ -39,12 +41,16 @@ export default function GenresTv() {
         {genres.map((item, i) => (
           <SwiperSlide key={i}>
             {tvStatus === 'succeeded' ? (
-              <Link
-                to={`/tv/genres/${item.id}`}
-                className="flex justify-center py-2 px-1  rounded-full border-2 text-darkRed font-semibold border-solid border-darkRed whitespace-nowrap overflow-hidden"
+              <button
+                onClick={() => {
+                  navigate(`/tv/genres/${item.id}`, {
+                    state: { genreName: item.name },
+                  });
+                }}
+                className="w-full flex justify-center py-2 px-1  rounded-full border-2 text-darkRed font-semibold border-solid border-darkRed whitespace-nowrap overflow-hidden cursor-pointer"
               >
                 {item.name}
-              </Link>
+              </button>
             ) : (
               <SkeletonTheme baseColor="#202020" highlightColor="#444">
                 <p>

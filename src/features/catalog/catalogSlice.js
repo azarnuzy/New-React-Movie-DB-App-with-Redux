@@ -32,14 +32,31 @@ export const loadMoreFetchMoviesByCatalog = createAsyncThunk(
   async ({ type, category, page, keyword, id_genres }) => {
     try {
       let response = null;
-      response = await axios.get(`${apiConfig.baseUrl}/${type}/${category}`, {
-        params: {
-          api_key: apiConfig.apiKey,
-          page: page + 1,
-          query: keyword,
-          with_genres: id_genres,
-        },
-      });
+
+      if (id_genres) {
+        response = await axios.get(`${apiConfig.baseUrl}/discover/${type}`, {
+          params: {
+            api_key: apiConfig.apiKey,
+            page: page + 1,
+            with_genres: id_genres,
+          },
+        });
+      } else if (keyword) {
+        response = await axios.get(`${apiConfig.baseUrl}search/multi`, {
+          params: {
+            api_key: apiConfig.apiKey,
+            page: page + 1,
+            query: keyword,
+          },
+        });
+      } else {
+        response = await axios.get(`${apiConfig.baseUrl}/${type}/${category}`, {
+          params: {
+            api_key: apiConfig.apiKey,
+            page: page + 1,
+          },
+        });
+      }
 
       return response.data;
     } catch (err) {
@@ -56,7 +73,6 @@ export const fetchMoviesByInput = createAsyncThunk(
       const response = await axios.get(`${apiConfig.baseUrl}search/multi`, {
         params,
       });
-      console.log(response);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -66,15 +82,17 @@ export const fetchMoviesByInput = createAsyncThunk(
 
 export const fetchMoviesByGenres = createAsyncThunk(
   'search/fetchMoviesByGenres',
-  async (id) => {
+  async ({ id_genres, type }) => {
     try {
-      const params = { api_key: apiConfig.apiKey, with_genres: id };
-      const response = await axios.get(`${apiConfig.baseUrl}/discover/movie`, {
-        params,
-      });
+      const params = { api_key: apiConfig.apiKey, with_genres: id_genres };
+      const response = await axios.get(
+        `${apiConfig.baseUrl}/discover/${type}`,
+        {
+          params,
+        }
+      );
       return response.data;
     } catch (error) {
-      console.log(id);
       console.error(error);
     }
   }

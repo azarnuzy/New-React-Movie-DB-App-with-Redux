@@ -9,7 +9,7 @@ import {
   selectDetailStatus,
 } from '../../features/detail/detailSlice';
 import dateFormat from 'dateformat';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useWindowWidth } from '@react-hook/window-size';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -51,6 +51,8 @@ export default function Header() {
     return `${hours}h ${minutes}m`;
   }
 
+  const navigate = useNavigate();
+
   return (
     <div className="w-full bg-black">
       <div className="z-[3] h-[100vh] w-full absolute top-0 bg-gradient-to-t to-[#0000000c] from-black"></div>
@@ -79,15 +81,28 @@ export default function Header() {
                 </p>
               </div>
               <div className="flex gap-3 mt-3">
-                {item.genres?.map((genre) => (
-                  <Link
-                    to={`/${category}/genres/${item.id}`}
-                    key={genre.id}
-                    className="py-1 px-4 rounded-full text-slate-100 border-solid border-2 border-slate-100 text-semibold text-lg whitespace-nowrap overflow-hidden"
-                  >
-                    {genre.name}
-                  </Link>
-                ))}
+                <Swiper
+                  slidesPerView={getSlidesPerView()}
+                  spaceBetween={20}
+                  className="mySwiper  "
+                  modules={[Autoplay]}
+                >
+                  {item.genres?.map((genre, i) => (
+                    <SwiperSlide key={i}>
+                      <button
+                        onClick={() => {
+                          navigate(`/${category}/genres/${genre.id}`, {
+                            state: { genreName: genre.name },
+                          });
+                        }}
+                        key={genre.id}
+                        className="w-full flex justify-center py-2 px-3 rounded-full text-slate-100 border-solid border-2 border-slate-100 text-semibold text-lg whitespace-nowrap overflow-hidden cursor-pointer"
+                      >
+                        {genre.name}
+                      </button>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               </div>
               <div className="mt-3 text-white">{item.overview}</div>
             </div>

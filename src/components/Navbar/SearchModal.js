@@ -84,7 +84,7 @@ export default function SearchModal() {
                       }}
                     />
                     <label htmlFor="search-movie">
-                      <AiOutlineSearch className="text-gray-600 mr-3" />
+                      <AiOutlineSearch className="text-gray-400 mr-3" />
                     </label>
                   </div>
                 </Dialog.Panel>
