@@ -16,18 +16,15 @@ export default function MovieGrid() {
   const { category, type } = useParams();
   const movies = useSelector(selectCatalogMovies);
 
-  const loadMoreStatus = useSelector(getLoadMoreStatus);
   const page = useSelector(getPage);
   const totalPage = useSelector(getTotalPages);
 
   useEffect(() => {
     dispatch(fetchMoviesByCatalog({ type, category }));
-  }, [category, dispatch, movies, type]);
+  }, [category, dispatch, type]);
 
   const onLoadMoreClicked = () => {
-    if (loadMoreStatus === 'idle') {
-      dispatch(loadMoreFetchMoviesByCatalog(page));
-    }
+    dispatch(loadMoreFetchMoviesByCatalog({ type, category, page }));
   };
 
   const location = useLocation();
