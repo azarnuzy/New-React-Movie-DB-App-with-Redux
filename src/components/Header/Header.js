@@ -40,15 +40,9 @@ export default function Header() {
       dispatch(fetchMovies({ type: 'popular' }));
       dispatch(fetchMoviesHeader());
       dispatch(fetchGenres());
-    }
-
-    if (tvStatus === 'idle') {
+      dispatch(fetchTrendingMovies());
       dispatch(fetchTv({ type: 'popular' }));
       dispatch(fetchGenresTv());
-    }
-
-    if (trendingStatus === 'idle') {
-      dispatch(fetchTrendingMovies());
     }
   }, [moviesStatus, dispatch, tvStatus, trendingStatus]);
 
@@ -92,7 +86,7 @@ export default function Header() {
                     alt=""
                   />
                   <Link to={`/movie/${item.id}`}>
-                    <div className="h-[80vh] transform translate-y-[75%] text-gray-50 mx-4 lg:max-w-5xl lg:mx-auto">
+                    <div className="h-[80vh] transform translate-y-[50%] text-gray-50 mx-4 lg:max-w-5xl lg:mx-auto">
                       <span className="flex gap-3 items-center text-yellow-400 mb-1">
                         <AiFillStar />{' '}
                         <p>{item.vote_average?.toFixed(1)} / 10</p>
@@ -101,6 +95,11 @@ export default function Header() {
                       <div className="flex">
                         <p className=" text-sm md mb-3 text-slate-50">{date}</p>
                       </div>
+                      <p className=" text-md mb-3">
+                        {item.overview.length > 200
+                          ? `${item.overview.substring(0, 200)}...`
+                          : item.overview}
+                      </p>
                     </div>
                   </Link>
                 </div>

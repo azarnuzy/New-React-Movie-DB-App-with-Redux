@@ -1,15 +1,16 @@
 import React from 'react';
 import { AiFillStar } from 'react-icons/ai';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import apiConfig from '../../api/apiConfig';
 import { category as cate } from '../../api/tmdbApi';
-import { fetchSimilarMovies } from '../../features/detail/detailSlice';
-import { fetchTrailerMovies } from '../../features/trending/trending';
 import noImage from '../../images/noImage.png';
 
 export default function MovieCard({ item, category }) {
-  const link = '/' + cate[category] + '/' + item.id;
+  let link = `/${cate[category]}/${item.id}`;
+
+  if (category === undefined) {
+    link = '/' + item.media_type + '/' + item.id;
+  }
 
   let bg = apiConfig.w500Image(item.poster_path || item.backdrop_path);
 

@@ -1,9 +1,30 @@
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function SearchModal() {
   let [isOpen, setIsOpen] = useState(false);
+
+  const page = useLocation();
+  const navigate = useNavigate();
+
+  const category =
+    page.pathname.indexOf('/tv') >= 0
+      ? 'tv'
+      : page.pathname.indexOf('/movie') >= 0
+      ? 'movie'
+      : 'multi';
+  const [keyword, setKeyword] = useState();
+
+  const handleKeyPressed = (e) => {
+    if (e.key === 'Enter') {
+      navigate(`/${category}/search/${keyword}`, {
+        state: { search: keyword },
+      });
+      setKeyword('');
+    }
+  };
 
   function closeModal() {
     setIsOpen(false);
@@ -53,9 +74,9 @@ export default function SearchModal() {
                       className="outline-none bg-transparent text-slate-400 w-full"
                       id="search-movie"
                       placeholder="What do you want to watch?"
-                      // value={keyword}
-                      // onChange={(e) => setKeyword(e.target.value)}
-                      // onKeyDown={(e) => handleKeyPressed(e)}
+                      value={keyword}
+                      onChange={(e) => setKeyword(e.target.value)}
+                      onKeyDown={(e) => handleKeyPressed(e)}
                     />
                     <label htmlFor="search-movie">
                       <AiOutlineSearch className="text-gray-600 mr-3" />

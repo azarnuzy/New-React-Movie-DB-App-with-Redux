@@ -2,7 +2,6 @@ import { useWindowWidth } from '@react-hook/window-size';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import apiConfig from '../../api/apiConfig';
-import ModalTrailer from '../Trailer/ModalTrailer';
 import {
   fetchTrailerMovies,
   getTrendingStatus,
@@ -61,7 +60,7 @@ export default function Trailer({ item }) {
       >
         {trailer?.map((item, i) => {
           return (
-            <SwiperSlide key={i} className="relative">
+            <SwiperSlide key={i} className="relative w-full">
               {trailerStatus === 'succeeded' ? (
                 <div className="relative h-[30vh]">
                   <iframe

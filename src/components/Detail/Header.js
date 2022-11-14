@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useSelector } from 'react-redux';
@@ -19,7 +19,6 @@ import { Autoplay } from 'swiper';
 import 'swiper/css';
 import CastCard from './CastCard';
 import Trailer from './Trailer';
-import Cookies from 'universal-cookie';
 import Similar from './Similar';
 
 export default function Header() {

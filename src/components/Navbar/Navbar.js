@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../images/Logo.svg';
 import MenuProfile from './MenuProfile';
-import ModalComponent from './ModalComponent';
 import SearchModal from './SearchModal';
 import Sidebar from './SidebarComponent';
 

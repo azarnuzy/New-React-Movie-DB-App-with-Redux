@@ -33,13 +33,13 @@ export default function Similar() {
 
   const getSlidesPerView = () => {
     if (width >= 1280) {
-      return 5;
+      return 6;
     } else if (width >= 1024) {
-      return 4;
+      return 5;
     } else if (width >= 768) {
-      return 3;
+      return 4;
     } else {
-      return 2;
+      return 3;
     }
   };
 

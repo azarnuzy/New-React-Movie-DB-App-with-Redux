@@ -4,11 +4,16 @@ import MovieGrid from '../components/Catalog/MovieGrid';
 import PageHeader from '../components/Catalog/PageHeader';
 
 export default function Catalog() {
-  const { type, category } = useParams();
-
+  const { type, category, keyword } = useParams();
+  let title = '';
+  if (keyword !== undefined) {
+    title = `Search by '${keyword}'`;
+  } else {
+    title = `${category} ${type}`;
+  }
   return (
     <div>
-      <PageHeader>{`${category} ${type}`}</PageHeader>
+      <PageHeader>{title}</PageHeader>
       <MovieGrid />
     </div>
   );

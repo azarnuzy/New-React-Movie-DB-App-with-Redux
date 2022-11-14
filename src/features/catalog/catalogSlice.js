@@ -12,7 +12,7 @@ const initialState = {
 };
 
 export const fetchMoviesByCatalog = createAsyncThunk(
-  'movies/fetchMoviesByCatalog',
+  'catalog/fetchMoviesByCatalog',
   async ({ type, category }) => {
     try {
       let response = null;
@@ -28,17 +28,33 @@ export const fetchMoviesByCatalog = createAsyncThunk(
 );
 
 export const loadMoreFetchMoviesByCatalog = createAsyncThunk(
-  'movies/loadMoreFetchMoviesByCatalog',
-  async ({ type, category, page }) => {
+  'catalog/loadMoreFetchMoviesByCatalog',
+  async ({ type, category, page, keyword }) => {
     try {
       let response = null;
       response = await axios.get(`${apiConfig.baseUrl}/${type}/${category}`, {
-        params: { api_key: apiConfig.apiKey, page: page + 1 },
+        params: { api_key: apiConfig.apiKey, page: page + 1, query: keyword },
       });
 
       return response.data;
     } catch (err) {
       console.error(err);
+    }
+  }
+);
+
+export const fetchMoviesByInput = createAsyncThunk(
+  'catalog/fetchMoviesByInput',
+  async ({ keyword }) => {
+    try {
+      const params = { api_key: apiConfig.apiKey, query: keyword };
+      const response = await axios.get(`${apiConfig.baseUrl}search/multi`, {
+        params,
+      });
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.error(error);
     }
   }
 );
@@ -72,6 +88,12 @@ const moviesSlice = createSlice({
       })
       .addCase(loadMoreFetchMoviesByCatalog.rejected, (state, action) => {
         state.loadingStatus = action.error.message;
+      })
+      .addCase(fetchMoviesByInput.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.movies = action.payload.results;
+        state.page = 1;
+        state.total_pages = action.payload.total_pages;
       });
   },
 });

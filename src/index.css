@@ -40,3 +40,7 @@ body {
 .swiper-button-prev::after {
   font-size: 30px !important;
 }
+
+.swiper {
+  width: 100%;
+}
