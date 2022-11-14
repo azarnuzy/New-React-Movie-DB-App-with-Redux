@@ -51,7 +51,7 @@ const trendingSlice = createSlice({
     });
     builder.addCase(fetchTrailerMovies.fulfilled, (state, action) => {
       state.status = 'succeeded';
-      state.trailer = action.payload.results;
+      state.trailer = action.payload?.results;
     });
   },
 });

@@ -20,6 +20,7 @@ import 'swiper/css';
 import CastCard from './CastCard';
 import Trailer from './Trailer';
 import Cookies from 'universal-cookie';
+import Similar from './Similar';
 
 export default function Header() {
   const item = useSelector(selectDetail);
@@ -127,6 +128,10 @@ export default function Header() {
             Latest Trailer
           </h3>
           <Trailer item={item} />
+          <h3 className="mt-[7vh] text-white font-semibold mx-3 text-xl">
+            Similar Movies
+          </h3>
+          <Similar category={category} />
         </div>
       ) : (
         <SkeletonTheme baseColor="#292929" highlightColor="#444">
