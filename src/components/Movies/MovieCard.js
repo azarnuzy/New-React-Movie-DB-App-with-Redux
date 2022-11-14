@@ -1,15 +1,21 @@
 import React from 'react';
 import { AiFillStar } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import apiConfig from '../../api/apiConfig';
 import { category as cate } from '../../api/tmdbApi';
 import noImage from '../../images/noImage.png';
 
 export default function MovieCard({ item, category }) {
+  const { id_genres, type } = useParams();
+
   let link = `/${cate[category]}/${item.id}`;
 
   if (category === undefined) {
     link = '/' + item.media_type + '/' + item.id;
+  }
+
+  if (id_genres !== undefined) {
+    link = '/' + type + '/' + item.id;
   }
 
   let bg = apiConfig.w500Image(item.poster_path || item.backdrop_path);

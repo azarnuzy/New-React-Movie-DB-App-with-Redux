@@ -12,6 +12,7 @@ export default function RoutesComponent() {
       <Route path="/:category/:id" element={<Detail />} />
       <Route path="/:type/:category/list" element={<Catalog />} />
       <Route path="/:category/search/:keyword" element={<Catalog />} />
+      <Route path="/:type/genres/:id_genres" element={<Catalog />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

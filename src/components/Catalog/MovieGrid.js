@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import {
   fetchMoviesByCatalog,
+  fetchMoviesByGenres,
   fetchMoviesByInput,
   getLoadMoreStatus,
   getPage,
@@ -14,19 +15,21 @@ import MovieCard from '../Movies/MovieCard';
 
 export default function MovieGrid() {
   const dispatch = useDispatch();
-  const { category, type, keyword } = useParams();
+  const { category, type, keyword, id_genres } = useParams();
   const movies = useSelector(selectCatalogMovies);
 
   const page = useSelector(getPage);
   const totalPage = useSelector(getTotalPages);
 
   useEffect(() => {
-    if (keyword === undefined) {
+    if (keyword === undefined && id_genres === undefined) {
       dispatch(fetchMoviesByCatalog({ type, category }));
+    } else if (keyword === undefined && id_genres.length > 0) {
+      dispatch(fetchMoviesByGenres(id_genres));
     } else {
       dispatch(fetchMoviesByInput({ keyword }));
     }
-  }, [category, dispatch, keyword, type]);
+  }, [category, dispatch, id_genres, keyword, type]);
 
   const onLoadMoreClicked = () => {
     dispatch(loadMoreFetchMoviesByCatalog({ type, category, page }));

@@ -29,11 +29,16 @@ export const fetchMoviesByCatalog = createAsyncThunk(
 
 export const loadMoreFetchMoviesByCatalog = createAsyncThunk(
   'catalog/loadMoreFetchMoviesByCatalog',
-  async ({ type, category, page, keyword }) => {
+  async ({ type, category, page, keyword, id_genres }) => {
     try {
       let response = null;
       response = await axios.get(`${apiConfig.baseUrl}/${type}/${category}`, {
-        params: { api_key: apiConfig.apiKey, page: page + 1, query: keyword },
+        params: {
+          api_key: apiConfig.apiKey,
+          page: page + 1,
+          query: keyword,
+          with_genres: id_genres,
+        },
       });
 
       return response.data;
@@ -54,6 +59,22 @@ export const fetchMoviesByInput = createAsyncThunk(
       console.log(response);
       return response.data;
     } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
+export const fetchMoviesByGenres = createAsyncThunk(
+  'search/fetchMoviesByGenres',
+  async (id) => {
+    try {
+      const params = { api_key: apiConfig.apiKey, with_genres: id };
+      const response = await axios.get(`${apiConfig.baseUrl}/discover/movie`, {
+        params,
+      });
+      return response.data;
+    } catch (error) {
+      console.log(id);
       console.error(error);
     }
   }
@@ -90,6 +111,12 @@ const moviesSlice = createSlice({
         state.loadingStatus = action.error.message;
       })
       .addCase(fetchMoviesByInput.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.movies = action.payload.results;
+        state.page = 1;
+        state.total_pages = action.payload.total_pages;
+      })
+      .addCase(fetchMoviesByGenres.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.movies = action.payload.results;
         state.page = 1;
