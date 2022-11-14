@@ -32,7 +32,7 @@ function Home() {
     <div>
       <Header />
       <div
-        className={`flex items-center text-lg mt-[44vh] mb-4 justify-between mx-3 font-semibold `}
+        className={`flex items-center text-lg mt-[75vh] mb-4 justify-between mx-3 font-semibold `}
       >
         <h2 className="text-xl">{`${moviesTitle}`} Movies</h2>
         <ListBox />

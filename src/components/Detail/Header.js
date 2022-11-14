@@ -19,6 +19,7 @@ import { Autoplay } from 'swiper';
 import 'swiper/css';
 import CastCard from './CastCard';
 import Trailer from './Trailer';
+import Cookies from 'universal-cookie';
 
 export default function Header() {
   const item = useSelector(selectDetail);

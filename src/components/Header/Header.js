@@ -25,6 +25,7 @@ import {
   fetchTrendingMovies,
   getTrendingStatus,
 } from '../../features/trending/trending';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -83,22 +84,25 @@ export default function Header() {
           return (
             <SwiperSlide key={i}>
               {moviesStatus === 'succeeded' ? (
-                <div className="w-full h-[50vh] relative">
-                  <div className="bg-[#0006] absolute w-full h-[50vh]"></div>
+                <div className="w-full h-[80vh] relative">
+                  <div className="bg-[#0006] absolute w-full h-[80vh]"></div>
                   <img
-                    className="absolute w-full h-[50vh] object-top object-cover -z-[10] "
+                    className="absolute w-full h-[80vh] object-top object-cover -z-[10] "
                     src={background}
                     alt=""
                   />
-                  <div className="h-[50vh] transform translate-y-[70%] text-gray-50 mx-4 lg:max-w-5xl lg:mx-auto">
-                    <span className="flex gap-3 items-center text-yellow-400 mb-1">
-                      <AiFillStar /> <p>{item.vote_average?.toFixed(1)} / 10</p>
-                    </span>
-                    <h2 className="text-2xl font-bold mb-1">{item.title}</h2>
-                    <div className="flex">
-                      <p className=" text-sm md mb-3 text-slate-50">{date}</p>
+                  <Link to={`/movie/${item.id}`}>
+                    <div className="h-[80vh] transform translate-y-[75%] text-gray-50 mx-4 lg:max-w-5xl lg:mx-auto">
+                      <span className="flex gap-3 items-center text-yellow-400 mb-1">
+                        <AiFillStar />{' '}
+                        <p>{item.vote_average?.toFixed(1)} / 10</p>
+                      </span>
+                      <h2 className="text-2xl font-bold mb-1">{item.title}</h2>
+                      <div className="flex">
+                        <p className=" text-sm md mb-3 text-slate-50">{date}</p>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               ) : (
                 <SkeletonTheme baseColor="#292929" highlightColor="#444">
