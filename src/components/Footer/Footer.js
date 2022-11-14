@@ -21,6 +21,9 @@ export default function Footer() {
             </h5>
             <div className="mt-6 lg:mb-0 mb-6">
               <button
+                onClick={() => {
+                  window.location.href = 'https://twitter.com/azar_nuzy';
+                }}
                 className="bg-white shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                 type="button"
               >
@@ -29,6 +32,10 @@ export default function Footer() {
                 </span>
               </button>
               <button
+                onClick={() => {
+                  window.location.href =
+                    'https://www.facebook.com/muhammad.a.nuzy';
+                }}
                 className="bg-white shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                 type="button"
               >
@@ -37,6 +44,9 @@ export default function Footer() {
                 </span>
               </button>
               <button
+                onClick={() => {
+                  window.location.href = 'https://www.instagram.com/azar_nuzy/';
+                }}
                 className="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                 type="button"
               >
@@ -45,6 +55,9 @@ export default function Footer() {
                 </span>
               </button>
               <button
+                onClick={() => {
+                  window.location.href = 'https://github.com/azarnuzy';
+                }}
                 className="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                 type="button"
               >
@@ -54,7 +67,7 @@ export default function Footer() {
               </button>
             </div>
           </div>
-          <div className="w-full lg:w-6/12 px-2">
+          {/* <div className="w-full lg:w-6/12 px-2">
             <div className="flex flex-wrap items-top mb-6">
               <div className="w-1/2 lg:w-4/12 px-2 ml-auto">
                 <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">
@@ -135,7 +148,7 @@ export default function Footer() {
                 </ul>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <hr className="my-3 border-blueGray-300" />
         <div className="flex flex-wrap items-center md:justify-between justify-center">

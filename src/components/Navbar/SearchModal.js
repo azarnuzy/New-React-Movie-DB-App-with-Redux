@@ -23,6 +23,7 @@ export default function SearchModal() {
         state: { search: keyword },
       });
       setKeyword('');
+      closeModal();
     }
   };
 
@@ -76,7 +77,11 @@ export default function SearchModal() {
                       placeholder="What do you want to watch?"
                       value={keyword}
                       onChange={(e) => setKeyword(e.target.value)}
-                      onKeyDown={(e) => handleKeyPressed(e)}
+                      onKeyDown={(e) => {
+                        if (keyword.length > 0) {
+                          handleKeyPressed(e);
+                        }
+                      }}
                     />
                     <label htmlFor="search-movie">
                       <AiOutlineSearch className="text-gray-600 mr-3" />
