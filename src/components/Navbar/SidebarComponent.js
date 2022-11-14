@@ -23,10 +23,10 @@ function MenuSidebar({ setIsShow }) {
                 />
               </Disclosure.Button>
               <Disclosure.Panel className="px-1 text-lg flex flex-col">
-                <Link to={'/movie'}>Popular</Link>
-                <Link to={'/movie/top-rated'}>Top Rated</Link>
-                <Link to={'/movie/upcoming'}>Upcoming</Link>
-                <Link to={'/movie/now-playing'}>Now Playing</Link>
+                <Link to={'/movie/popular/list'}>Popular</Link>
+                <Link to={'/movie/top_rated/list'}>Top Rated</Link>
+                <Link to={'/movie/upcoming/list'}>Upcoming</Link>
+                <Link to={'/movie/now_playing/list'}>Now Playing</Link>
               </Disclosure.Panel>
             </>
           )}
@@ -43,10 +43,10 @@ function MenuSidebar({ setIsShow }) {
                 />
               </Disclosure.Button>
               <Disclosure.Panel className="px-1 text-lg flex flex-col">
-                <Link to={'/tv'}>Popular</Link>
-                <Link to={'/tv/top-rated'}>Top Rated</Link>
-                <Link to={'/tv/on-the-air'}>On TV</Link>
-                <Link to={'/tv/airing-today'}>Airing Today</Link>
+                <Link to={'/tv/popular/list'}>Popular</Link>
+                <Link to={'/tv/top_rated/list'}>Top Rated</Link>
+                <Link to={'/tv/on_the_air/list'}>On TV</Link>
+                <Link to={'/tv/airing_today/list'}>Airing Today</Link>
               </Disclosure.Panel>
             </>
           )}

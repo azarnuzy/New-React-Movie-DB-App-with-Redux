@@ -27,7 +27,7 @@ export default function Trailer({ item }) {
 
   const width = useWindowWidth();
 
-  const { category } = useParams();
+  const { category, id } = useParams();
 
   const getSlidesPerView = () => {
     if (width >= 1280) {
@@ -45,10 +45,10 @@ export default function Trailer({ item }) {
     dispatch(
       fetchTrailerMovies({
         type: category,
-        id: item.id,
+        id: id,
       })
     );
-  }, [category, dispatch, item.id]);
+  }, [category, dispatch, id]);
 
   return (
     <div className="w-full overflow-hidden flex items-center relative mt-5">

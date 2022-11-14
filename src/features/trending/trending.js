@@ -29,6 +29,7 @@ export const fetchTrailerMovies = createAsyncThunk(
   async ({ type, id }) => {
     try {
       let response = null;
+      console.log(type, id);
       const params = { api_key: apiConfig.apiKey };
       response = await axios.get(`${apiConfig.baseUrl}${type}/${id}/videos`, {
         params,

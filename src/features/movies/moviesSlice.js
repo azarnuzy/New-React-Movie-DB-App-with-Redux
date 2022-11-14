@@ -8,9 +8,6 @@ const initialState = {
   headers: [],
   status: 'idle',
   filterBy: 'popular',
-  loadingStatus: 'idle',
-  page: 1,
-  total_pages: 0,
   error: null,
 };
 
@@ -60,22 +57,6 @@ export const fetchGenres = createAsyncThunk('genres/fetchGenres', async () => {
   }
 });
 
-export const loadMoreFetchMovies = createAsyncThunk(
-  'movies/loadMoreFetchMovies',
-  async (page) => {
-    try {
-      let response = null;
-      response = await axios.get(`${apiConfig.baseUrl}/movie/popular`, {
-        params: { api_key: apiConfig.apiKey, page: page + 1 },
-      });
-
-      return response.data;
-    } catch (err) {
-      console.error(err);
-    }
-  }
-);
-
 const moviesSlice = createSlice({
   name: 'movies',
   initialState,
@@ -102,17 +83,7 @@ const moviesSlice = createSlice({
       .addCase(fetchMoviesHeader.fulfilled, (state, action) => {
         state.headers = action.payload.results;
       })
-      .addCase(loadMoreFetchMovies.pending, (state, action) => {
-        state.loadingStatus = 'loading';
-      })
-      .addCase(loadMoreFetchMovies.fulfilled, (state, action) => {
-        state.loadingStatus = 'succeeded';
-        state.movies = [...state.movies, ...action.payload.results];
-        state.page += 1;
-      })
-      .addCase(loadMoreFetchMovies.rejected, (state, action) => {
-        state.loadingStatus = action.error.message;
-      })
+
       .addCase(fetchGenres.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.genres = action.payload.genres;
@@ -127,11 +98,6 @@ export const SelectcHeaders = (state) => state.movies.headers;
 export const selectFilterBy = (state) => state.movies.filterBy;
 
 export const selectAllGenres = (state) => state.movies.genres;
-
-export const getLoadMoreStatus = (state) => state.movies.loadingStatus;
-
-export const getPage = (state) => state.movies.page;
-export const getTotalPages = (state) => state.movies.total_pages;
 
 export const { filterBy } = moviesSlice.actions;
 

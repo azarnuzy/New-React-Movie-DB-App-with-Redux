@@ -128,7 +128,7 @@ export default function Header() {
             Latest Trailer
           </h3>
           <Trailer item={item} />
-          <h3 className="mt-[7vh] text-white font-semibold mx-3 text-xl">
+          <h3 className="mt-[7vh] text-white font-semibold mx-3 text-xl mb-3">
             Similar Movies
           </h3>
           <Similar category={category} />

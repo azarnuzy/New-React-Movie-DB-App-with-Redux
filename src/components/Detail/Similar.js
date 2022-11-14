@@ -45,6 +45,7 @@ export default function Similar() {
 
   return (
     <div className="w-full overflow-hidden flex items-center relative pb-10">
+      <div className="absolute right-0 h-[110%] -top-2 z-10 bg-black opacity-80 blur-sm w-3"></div>
       <Swiper
         slidesPerView={getSlidesPerView()}
         spaceBetween={20}
