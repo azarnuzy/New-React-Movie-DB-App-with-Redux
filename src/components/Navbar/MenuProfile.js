@@ -5,6 +5,7 @@ import {
   AiOutlineUser,
   AiOutlineUserAdd,
 } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 export default function MenuProfile() {
   const [customOpen, setCustomOpen] = useState(false);
@@ -29,9 +30,9 @@ export default function MenuProfile() {
                 className="fixed top-11 opacity-90 bg-darkGrey sm:px-5 sm:right-2 right-0 mt-2 w-fit  origin-top-right  rounded-sm md:text-lg  ring-1 ring-black ring-opacity-5 focus:outline-none text-sm flex flex-col gap-3 items-start"
               >
                 <Menu.Item className="text-left px-3 pt-3 flex items-center text-base font-medium gap-2">
-                  <span className="text-slate-100 ">
+                  <Link to={'/login'} className="text-slate-100 ">
                     <AiOutlineUser /> Login
-                  </span>
+                  </Link>
                 </Menu.Item>
                 <Menu.Item className="text-left px-3 flex items-center text-base font-medium gap-2">
                   <span className="text-slate-100 ">

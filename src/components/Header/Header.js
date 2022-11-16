@@ -79,9 +79,9 @@ export default function Header() {
             <SwiperSlide key={i}>
               {moviesStatus === 'succeeded' ? (
                 <div className="w-full h-[80vh] relative">
-                  <div className="bg-[#0006] absolute w-full h-[80vh]"></div>
+                  <div className="bg-gradient-to-t to-[#0000000c] from-black absolute w-full h-[80vh]"></div>
                   <img
-                    className="absolute w-full h-[80vh] object-top object-cover -z-[10] "
+                    className="absolute w-full h-[80vh] object-top object-cover -z-[9] "
                     src={background}
                     alt=""
                   />

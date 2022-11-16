@@ -14,7 +14,9 @@ export default function Catalog() {
   if (keyword !== undefined && id_genres === undefined) {
     title = `Search by '${keyword}'`;
   } else if (id_genres) {
-    title = `Search by Genres: '${location.state?.genreName}'`;
+    title = `Search by Genres: '${
+      location.state?.genreName || type || category
+    }'`;
   } else {
     title = `${category} ${type}`;
   }
