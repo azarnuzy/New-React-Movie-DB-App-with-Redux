@@ -35,9 +35,9 @@ export default function MenuProfile() {
                   </Link>
                 </Menu.Item>
                 <Menu.Item className="text-left px-3 flex items-center text-base font-medium gap-2">
-                  <span className="text-slate-100 ">
+                  <Link to={'/signup'} className="text-slate-100 ">
                     <AiOutlineUserAdd /> Register
-                  </span>
+                  </Link>
                 </Menu.Item>
                 <div className="h-[1px] w-full bg-gray-400"></div>
                 <Menu.Item className="text-left px-3 pb-3 flex items-center text-base">
