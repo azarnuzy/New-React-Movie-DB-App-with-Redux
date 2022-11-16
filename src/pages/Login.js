@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
-import { AiOutlineEyeInvisible, AiOutlineMail } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
+import {
+  AiFillEye,
+  AiFillGoogleCircle,
+  AiOutlineEyeInvisible,
+  AiOutlineGoogle,
+  AiOutlineMail,
+} from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import apiConfig from '../api/apiConfig';
+import {
+  logInWithEmailAndPassword,
+  signInWithGoogle,
+} from '../config/firebase';
 import { selectAllMovies } from '../features/movies/moviesSlice';
 import poster from '../images/posterDefault.jpg';
 
@@ -11,21 +21,47 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [, setErrMsg] = useState('');
 
+  const [visiblePass, setVisiblePass] = useState(false);
+
   const item = useSelector(selectAllMovies);
 
   let bg = apiConfig.w500Image(item[0]?.poster_path || item[0]?.backdrop_path);
 
-  if (bg.indexOf('undefined')) {
+  if (bg.indexOf('undefined') >= 0) {
     bg = poster;
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      logInWithEmailAndPassword(email, password);
+      setEmail('');
+      setPassword('');
+    } catch (err) {
+      if (!err?.response) {
+        alert('No Server Response');
+        setErrMsg('No Server Response');
+      } else if (err.response?.status === 400) {
+        alert('Missing username or Password');
+        setErrMsg('Missing username or Password');
+      } else if (err.response?.status === 401) {
+        alert('Unauthorized');
+        setErrMsg('Unauthorized');
+      } else {
+        alert('Login Failed');
+        setErrMsg('Login Failed');
+      }
+    }
+  };
+
   return (
-    <div className="h-[80vh] flex items-center flex-col justify-center">
-      <div className="bg-[#000000db] absolute w-full h-[80vh]"></div>
+    <div className="h-[100vh] flex items-center flex-col justify-center">
+      <div className="bg-[#000000db] absolute w-full h-[100vh]"></div>
       <img
         src={bg}
         alt={item[0]?.name || item[0]?.title || 'backdrop image login'}
-        className="absolute h-[80vh] w-full object-cover top-0 -z-10"
+        className="absolute h-[100vh] w-full object-cover top-0 -z-10"
       />
       <div className="relative z-[3]"></div>
       <div className="flex flex-col items-center justify-center gap-3 relative z-0">
@@ -34,7 +70,10 @@ export default function Login() {
           Please login to continue using our app
         </span>
       </div>
-      <form className="w-full relative z-0 lg:w-[400px]">
+      <form
+        className="w-full relative z-0 lg:w-[400px]"
+        onSubmit={handleSubmit}
+      >
         <div className="py-2 px-4 border text-slate-50 border-slate-300 border-solid rounded-md bg-gray-700 my-3 mx-5 flex justify-between items-center">
           <input
             className="outline-none w-full bg-transparent"
@@ -53,7 +92,7 @@ export default function Login() {
         <div className="py-2 px-4 border text-slate-50 border-slate-300 border-solid rounded-md bg-gray-700 my-3 flex justify-between items-center mx-5">
           <input
             className="outline-none w-full bg-transparent"
-            type="password"
+            type={visiblePass ? 'text' : 'password'}
             placeholder="Password"
             autoComplete="off"
             onChange={(e) => setPassword(e.target.value)}
@@ -61,14 +100,27 @@ export default function Login() {
             id="password"
             required
           />
-          <label htmlFor="password">
-            <AiOutlineEyeInvisible />
+          <label
+            onClick={() => {
+              setVisiblePass(!visiblePass);
+            }}
+          >
+            {visiblePass ? <AiFillEye /> : <AiOutlineEyeInvisible />}
           </label>
         </div>
         <div className="mt-7 text-center py-2 px-4 border text-slate-50 border-lightRed border-solid rounded-md bg-lightRed my-3 flex justify-center items-center mx-5 hover:bg-darkRed transform duration-300">
-          <button className="text-center font-bold text-lg">Log In</button>
+          <button className="text-center font-bold text-lg" type="submit">
+            Log In
+          </button>
         </div>
       </form>
+      <div
+        className="flex gap-3 relative z-0 w-full items-center px-6 mt-3 lg:w-[400px] cursor-pointer"
+        onClick={signInWithGoogle}
+      >
+        <AiOutlineGoogle className="text-white text-2xl" />
+        <button className="text-slate-400">Login with Google</button>
+      </div>
       <div className="flex  relative z-0 w-full px-6 mt-3 lg:w-[400px]">
         <span className="text-slate-400 flex gap-3">
           Are you new in Movielist?{' '}

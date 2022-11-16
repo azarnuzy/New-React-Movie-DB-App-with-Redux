@@ -20,12 +20,12 @@ export default function Register() {
   }
 
   return (
-    <div className="h-[80vh] flex items-center flex-col justify-center">
-      <div className="bg-[#000000db] absolute w-full h-[80vh]"></div>
+    <div className="h-[100vh] flex items-center flex-col justify-center">
+      <div className="bg-[#000000db] absolute w-full h-[100vh]"></div>
       <img
         src={bg}
         alt={item[0]?.name || item[0]?.title || 'backdrop image login'}
-        className="absolute h-[80vh] w-full object-cover top-0 -z-10"
+        className="absolute h-[100vh] w-full object-cover top-0 -z-10"
       />
       <div className="relative z-[3]"></div>
       <div className="flex flex-col items-center justify-center gap-3 relative z-0">
@@ -88,9 +88,9 @@ export default function Register() {
             id="password"
             required
           />
-          {/* <label htmlFor="password">
+          <label htmlFor="password">
             <AiOutlineEyeInvisible />
-          </label> */}
+          </label>
         </div>
         <div className="mt-7 text-center py-2 px-4 border text-slate-50 border-lightRed border-solid rounded-md bg-lightRed my-3 flex justify-center items-center mx-5 hover:bg-darkRed transform duration-300">
           <button className="text-center font-bold text-lg">Sign Up</button>
