@@ -8,7 +8,7 @@ import {
   AiOutlineMail,
 } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import apiConfig from '../api/apiConfig';
 import {
   auth,
@@ -39,6 +39,8 @@ export default function Login() {
   }
 
   const [user, loading, error] = useAuthState(auth);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -87,7 +89,8 @@ export default function Login() {
     if (loading) return;
     if (!user) return;
     fetchUserName();
-  }, [user, loading, dispatch]);
+    navigate('/');
+  }, [user, loading, dispatch, navigate]);
 
   return (
     <div className="h-[100vh] flex items-center flex-col justify-center">

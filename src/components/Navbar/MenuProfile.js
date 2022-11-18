@@ -12,8 +12,6 @@ import { logout } from '../../config/firebase';
 import { selectLogin, selectLoginStatus } from '../../features/user/userSlice';
 
 export default function MenuProfile() {
-  const navigate = useNavigate();
-
   const [customOpen, setCustomOpen] = useState(false);
 
   const [isLogin, setIsLogin] = useState(false);
@@ -30,9 +28,8 @@ export default function MenuProfile() {
       setIsLogin(true);
       setFirstName(data.first_name || 'Google');
       setLastName(data.last_name || 'User');
-      navigate('/');
     }
-  }, [isLogin, navigate, loginStatus, user]);
+  }, [isLogin, loginStatus, user]);
 
   function buttonClicked() {
     setCustomOpen((prev) => !prev);

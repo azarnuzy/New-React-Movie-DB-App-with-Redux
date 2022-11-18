@@ -6,16 +6,19 @@ import {
 } from 'react-icons/ai';
 import { FaInfoCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import apiConfig from '../api/apiConfig';
 import { registerWithEmailAndPassword } from '../config/firebase';
 import { selectAllMovies } from '../features/movies/moviesSlice';
+import { loginWithFireBase } from '../features/user/userSlice';
 import poster from '../images/posterDefault.jpg';
 
 const EMAIL_REGEX = /^[A-Za-z0-9_!#$%&'*+\\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 export default function Register() {
+  const navigate = useNavigate();
+
   const errRef = useRef();
 
   const [username, setUsername] = useState('');
@@ -60,10 +63,24 @@ export default function Register() {
 
     try {
       registerWithEmailAndPassword(username, email, pwd);
+      const firstName1 = username.split(' ')[0];
+      const lastName1 = username.split(' ')[1];
+      dispatch(
+        loginWithFireBase({
+          data: { first_name: firstName1, last_name: lastName1 },
+        })
+      );
+      localStorage.setItem(
+        'user-info',
+        JSON.stringify({
+          data: { first_name: firstName1, last_name: lastName1 },
+        })
+      );
       setEmail('');
       setPwd('');
       setMatchPwd('');
       setUsername('');
+      navigate('/');
       alert('register success');
     } catch (err) {
       if (!err?.response) {
