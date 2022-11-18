@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import {
   AiFillEye,
   AiFillGoogleCircle,
@@ -10,11 +11,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import apiConfig from '../api/apiConfig';
 import {
+  auth,
+  db,
   logInWithEmailAndPassword,
   signInWithGoogle,
 } from '../config/firebase';
 import { selectAllMovies } from '../features/movies/moviesSlice';
 import poster from '../images/posterDefault.jpg';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -30,6 +34,8 @@ export default function Login() {
   if (bg.indexOf('undefined') >= 0) {
     bg = poster;
   }
+
+  const [user, loading, error] = useAuthState(auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,6 +60,23 @@ export default function Login() {
       }
     }
   };
+
+  useEffect(() => {
+    const fetchUserName = async () => {
+      try {
+        const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
+        const doc = await getDocs(q);
+        const data = doc.docs[0].data();
+        console.log(data);
+      } catch (err) {
+        console.error(err);
+        alert('An error occured while fetching user data');
+      }
+    };
+    if (loading) return;
+    if (!user) return;
+    fetchUserName();
+  }, [user, loading]);
 
   return (
     <div className="h-[100vh] flex items-center flex-col justify-center">
