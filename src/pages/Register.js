@@ -59,10 +59,12 @@ export default function Register() {
     }
 
     try {
-      registerWithEmailAndPassword();
+      registerWithEmailAndPassword(username, email, pwd);
       setEmail('');
       setPwd('');
       setMatchPwd('');
+      setUsername('');
+      alert('register success');
     } catch (err) {
       if (!err?.response) {
         setErrMsg('No Server Response');
@@ -97,7 +99,10 @@ export default function Register() {
           Please fill in the form to continue
         </span>
       </div>
-      <form className="w-full relative z-0 lg:w-[400px]">
+      <form
+        className="w-full relative z-0 lg:w-[400px]"
+        onSubmit={handleSubmit}
+      >
         <div className="py-2 px-4 border text-slate-50 border-slate-300 border-solid rounded-md bg-gray-700 my-3 mx-5 flex justify-between items-center">
           <input
             className="outline-none w-full bg-transparent"
@@ -232,7 +237,10 @@ export default function Register() {
           Must match the first password input field.
         </p>
         <div className="mt-7 text-center py-2 px-4 border text-slate-50 border-lightRed border-solid rounded-md bg-lightRed my-3 flex justify-center items-center mx-5 hover:bg-darkRed transform duration-300">
-          <button className="text-center font-bold text-lg" type="submit">
+          <button
+            className="text-center font-bold text-lg w-full"
+            type="submit"
+          >
             Sign Up
           </button>
         </div>

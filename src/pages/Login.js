@@ -19,8 +19,11 @@ import {
 import { selectAllMovies } from '../features/movies/moviesSlice';
 import poster from '../images/posterDefault.jpg';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { loginWithFireBase } from '../features/user/userSlice';
 
 export default function Login() {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [, setErrMsg] = useState('');
@@ -67,7 +70,15 @@ export default function Login() {
         const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
         const doc = await getDocs(q);
         const data = doc.docs[0].data();
-        console.log(data);
+        const firstName = data.name.split(' ')[0];
+        const lastName = data.name.split(' ')[1];
+        dispatch(loginWithFireBase(data));
+        localStorage.setItem(
+          'user-info',
+          JSON.stringify({
+            data: { first_name: firstName, last_name: lastName },
+          })
+        );
       } catch (err) {
         console.error(err);
         alert('An error occured while fetching user data');
@@ -76,7 +87,7 @@ export default function Login() {
     if (loading) return;
     if (!user) return;
     fetchUserName();
-  }, [user, loading]);
+  }, [user, loading, dispatch]);
 
   return (
     <div className="h-[100vh] flex items-center flex-col justify-center">

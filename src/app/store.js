@@ -4,6 +4,7 @@ import tvReducer from '../features/tv/tvSlice';
 import trendingReducer from '../features/trending/trending';
 import detailReducer from '../features/detail/detailSlice';
 import catalogReducer from '../features/catalog/catalogSlice';
+import userReducer from '../features/user/userSlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     trending: trendingReducer,
     detail: detailReducer,
     catalog: catalogReducer,
+    user: userReducer,
   },
 });
