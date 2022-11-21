@@ -33,6 +33,7 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
 const signInWithGoogle = async () => {
+  console.log('login');
   try {
     const res = await signInWithPopup(auth, googleProvider);
     console.log(res);

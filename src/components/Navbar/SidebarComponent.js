@@ -60,13 +60,13 @@ export default function SidebarComponent() {
   const [isShow, setIsShow] = useState(false);
 
   return (
-    <div>
+    <div className="">
       <AiOutlineMenu className="text-xl" onClick={() => setIsShow(true)} />
       <div
         className={`transform ${
           isShow ? '-translate-x-0' : '-translate-x-[9999px]'
         } duration-300
-         h-[100vh] bg-darkGrey left-0 fixed top-0 w-[80vw] opacity-90 z-20`}
+         h-[100vh] bg-darkGrey left-0 fixed top-0 w-[80vw] sm:w-[30vw] opacity-90 z-20`}
       >
         <MenuSidebar setIsShow={setIsShow} />
       </div>

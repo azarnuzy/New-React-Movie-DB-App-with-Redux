@@ -55,16 +55,16 @@ export default function Trailer() {
           return (
             <SwiperSlide key={i} className="relative">
               {trendingStatus === 'succeeded' ? (
-                <div className="relative h-[30vh]">
-                  <div className="absolute top-0 left-0 h-[30vh] z-0 bg-gradient-to-r from-darkGrey to-darkGrey w-full opacity-70"></div>
+                <div className="relative  md:h-[40vh] h-[30vh]">
+                  <div className="absolute top-0 left-0 md:h-[40vh] h-[30vh] z-0 bg-gradient-to-r from-darkGrey to-darkGrey w-full opacity-70"></div>
                   <img
                     src={apiConfig.w500Image(
                       item.poster_path || item.backdrop_path
                     )}
                     alt=""
-                    className="absolute top-0 left-0 w-full h-[30vh] object-cover object-center -z-10"
+                    className="absolute top-0 left-0 w-full md:h-[40vh] h-[30vh] object-cover object-center -z-10"
                   />
-                  <div className="w-full h-[30vh] flex justify-center items-center flex-col">
+                  <div className="w-full md:h-[40vh] h-[30vh] flex justify-center items-center flex-col">
                     <div
                       className="relative z-10 group"
                       onClick={() => {

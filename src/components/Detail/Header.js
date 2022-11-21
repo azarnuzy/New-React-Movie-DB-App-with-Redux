@@ -9,7 +9,7 @@ import {
   selectDetailStatus,
 } from '../../features/detail/detailSlice';
 import dateFormat from 'dateformat';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useWindowWidth } from '@react-hook/window-size';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -66,7 +66,7 @@ export default function Header() {
             alt={item.name || item.title}
           />
           <div className="relative z-[5]  mt-[45vh]">
-            <div className="mx-2">
+            <div className="mx-2 max-w-[1280px] m-auto">
               <span className="flex gap-3 items-center text-yellow-400 mt-1 ">
                 <AiFillStar /> <p>{item.vote_average?.toFixed(1)} / 10</p>
               </span>

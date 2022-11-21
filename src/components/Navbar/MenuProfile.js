@@ -83,24 +83,17 @@ export default function MenuProfile() {
               : customOpen && (
                   <Menu.Items
                     static
-                    className="fixed top-11 opacity-90 bg-darkGrey sm:px-5 sm:right-2 right-0 mt-2 w-fit  origin-top-right  rounded-sm md:text-lg  ring-1 ring-black ring-opacity-5 focus:outline-none text-sm flex flex-col gap-3 items-start"
+                    className="fixed top-11 opacity-90 bg-darkGrey sm:px-8 sm:right-2 right-0 mt-2 w-fit  origin-top-right  rounded-sm md:text-lg  ring-1 py-3 ring-black ring-opacity-5 focus:outline-none text-sm flex flex-col gap-3 items-start"
                   >
-                    <Menu.Item className="text-left px-3 pt-3 flex items-center text-base font-medium gap-2">
+                    <Menu.Item className="text-left flex items-center text-base font-medium gap-2">
                       <Link to={'/login'} className="text-slate-100 ">
                         <AiOutlineUser /> Login
                       </Link>
                     </Menu.Item>
-                    <Menu.Item className="text-left px-3 flex items-center text-base font-medium gap-2">
+                    <Menu.Item className="text-left flex items-center text-base font-medium gap-2">
                       <Link to={'/signup'} className="text-slate-100 ">
                         <AiOutlineUserAdd /> Register
                       </Link>
-                    </Menu.Item>
-                    <div className="h-[1px] w-full bg-gray-400"></div>
-                    <Menu.Item className="text-left px-3 pb-3 flex items-center text-base">
-                      <button className="flex items-center">
-                        <AiFillGoogleCircle className=" mr-2 text-xl" /> Sign in
-                        with Google
-                      </button>
                     </Menu.Item>
                   </Menu.Items>
                 )}

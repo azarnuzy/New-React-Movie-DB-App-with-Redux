@@ -2,7 +2,6 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import {
   AiFillEye,
-  AiFillGoogleCircle,
   AiOutlineEyeInvisible,
   AiOutlineGoogle,
   AiOutlineMail,
@@ -38,7 +37,7 @@ export default function Login() {
     bg = poster;
   }
 
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   const navigate = useNavigate();
 
